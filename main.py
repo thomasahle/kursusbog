@@ -1,8 +1,10 @@
-from flask import Flask
-app = Flask(__name__)
+import flask
+app = flask.Flask(__name__)
 app.config['DEBUG'] = True
 
+from google.appengine.ext import ndb
 import ku_grabber
+import model
 
 @app.route('/')
 def hello():
@@ -17,9 +19,13 @@ def update():
 
 @app.route('/show')
 def show():
-    course_dbs, course_cursor = model.Course.get_dbs()
+    # course_dbs, course_cursor = model.Course.query(ancestor=ndb.Key('Book','all'))
+    # print model.Course.query().fetch()
+    # course_dbs, course_cursor = model.Course.query().fetch()
+    course_dbs = model.Course.query().fetch()
+    # course_dbs = []
     return flask.render_template(
-        'templates/courses.html',
+        'courses.html',
         course_dbs=course_dbs)
 
 @app.errorhandler(404)

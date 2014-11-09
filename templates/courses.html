@@ -1,29 +1,26 @@
-# extends 'base.html'
-
-# block content
-  <div class="page-header">
-    <h1>Courses</h1>
-  </div>
-  <table class="table table-bordered">
-    <thead>
+<!doctype html>
+<div class="page-header">
+  <h1>Courses</h1>
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Name</th>
+      <th>Grade</th>
+      <th>Lang</th>
+      <th>mPoint</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for course_db in course_dbs %}
       <tr>
-        <th>Page</th>
-        <th>Name</th>
-        <th>Grade</th>
-        <th>Lang</th>
-        <th>mPoint</th>
+        <td>{{course_db.page}}</td>
+        <td>{{course_db.name}}</td>
+        <td>{{course_db.grade}}</td>
+        <td>{{course_db.lang}}</td>
+        <td>{{course_db.mpoint}}</td>
       </tr>
-    </thead>
-    <tbody>
-      # for course_db in course_dbs
-        <tr>
-          <td>{{course_db.page}}</td>
-          <td>{{course_db.name}}</td>
-          <td>{{course_db.grade}}</td>
-          <td>{{course_db.lang}}</td>
-          <td>{{course_db.mpoint}}</td>
-        </tr>
-      # endfor
-    </tbody>
-  </table>
-# endblock
+    {% endfor %}
+  </tbody>
+</table>
