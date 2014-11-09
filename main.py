@@ -2,15 +2,25 @@ from flask import Flask
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-# Note: We don't need to call run() since our application is embedded within
-# the App Engine WSGI application server.
-
+import ku_grabber
 
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
     return 'Hello World!'
 
+@app.route('/update')
+def update():
+    # Now we are making changes on a GET request. Not smart.
+    ku_grabber.update()
+    return 'Done'
+
+@app.route('/show')
+def show():
+    course_dbs, course_cursor = model.Course.get_dbs()
+    return flask.render_template(
+        'templates/courses.html',
+        course_dbs=course_dbs)
 
 @app.errorhandler(404)
 def page_not_found(e):
